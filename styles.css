@@ -9,6 +9,7 @@
   color-scheme: light;
 }
 * { box-sizing: border-box; }
+[hidden] { display: none !important; }
 html { -webkit-text-size-adjust: 100%; }
 body {
   margin: 0;
@@ -71,3 +72,23 @@ footer.site {
   font-size: 0.875rem; color: var(--muted);
   display: flex; flex-wrap: wrap; gap: 0.5rem 2rem; justify-content: space-between;
 }
+
+button.cta { border: 0; font: inherit; font-weight: 500; cursor: pointer; }
+button.cta:disabled { opacity: 0.6; cursor: default; }
+.form { display: grid; gap: 1.25rem; margin-top: 2rem; max-width: 32rem; }
+.field { display: grid; gap: 0.4rem; }
+.field label { font-weight: 500; font-size: 0.95rem; }
+.opt { color: var(--muted); font-weight: 400; }
+.field input, .field textarea {
+  font: inherit; color: var(--ink); background: var(--paper);
+  border: 1px solid #bdbdbd; border-radius: 0; padding: 0.65rem 0.75rem; width: 100%;
+}
+.field input:focus, .field textarea:focus { outline: 2px solid var(--ink); outline-offset: 1px; border-color: var(--ink); }
+.field textarea { resize: vertical; }
+.form-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 1.25rem; }
+.form-actions .cta { margin-top: 0; }
+.link-btn { background: none; border: 0; padding: 0; font: inherit; color: var(--muted); text-decoration: underline; cursor: pointer; }
+.link-btn:hover { color: var(--ink); }
+.form-status { min-height: 1.65em; }
+.form-status:empty { display: none; }
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }

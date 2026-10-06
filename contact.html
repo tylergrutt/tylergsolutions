@@ -30,6 +30,21 @@
     <dt>LinkedIn</dt><dd><a href="https://www.linkedin.com/in/tyler-g-31523b141/">linkedin.com/in/tyler-g-31523b141</a></dd>
     <dt>Based in</dt><dd>Atlanta, GA</dd>
   </dl>
+  <button type="button" class="cta" id="open-form" aria-expanded="false" aria-controls="contact-form">Get in contact</button>
+  <form id="contact-form" class="form" action="https://formsubmit.co/tylergsolutions@gmail.com" method="POST" hidden>
+    <input type="hidden" name="_subject" value="New inquiry from your website">
+    <input type="hidden" name="_template" value="table">
+    <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <div class="field"><label for="cf-name">Name</label><input id="cf-name" name="name" type="text" autocomplete="name" required></div>
+    <div class="field"><label for="cf-email">Email</label><input id="cf-email" name="email" type="email" autocomplete="email" required></div>
+    <div class="field"><label for="cf-company">Company <span class="opt">(optional)</span></label><input id="cf-company" name="company" type="text" autocomplete="organization"></div>
+    <div class="field"><label for="cf-message">How can I help?</label><textarea id="cf-message" name="message" rows="6" required></textarea></div>
+    <div class="form-actions">
+      <button type="submit" class="cta" id="cf-submit">Send message</button>
+      <button type="button" class="link-btn" id="cf-cancel">Cancel</button>
+    </div>
+    <p class="form-status" id="cf-status" role="status" aria-live="polite"></p>
+  </form>
 </section>
 
 <section>
@@ -46,5 +61,40 @@
   <span>Atlanta, GA &middot; Available for remote work</span>
 </footer>
 </div>
+<script>
+(function () {
+  var openBtn = document.getElementById("open-form");
+  var form = document.getElementById("contact-form");
+  var status = document.getElementById("cf-status");
+  var submit = document.getElementById("cf-submit");
+  function toggle(show) {
+    form.hidden = !show;
+    openBtn.hidden = show;
+    openBtn.setAttribute("aria-expanded", String(show));
+    if (show) document.getElementById("cf-name").focus(); else openBtn.focus();
+  }
+  openBtn.addEventListener("click", function () { toggle(true); });
+  document.getElementById("cf-cancel").addEventListener("click", function () { toggle(false); });
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    submit.disabled = true;
+    status.textContent = "Sending...";
+    fetch("https://formsubmit.co/ajax/tylergsolutions@gmail.com", {
+      method: "POST",
+      headers: { "Accept": "application/json" },
+      body: new FormData(form)
+    }).then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); })
+      .then(function (res) {
+        if (!res.ok || String(res.d.success) !== "true") throw new Error(res.d.message || "failed");
+        form.reset();
+        status.textContent = "Thanks, your message has been sent. I'll reply within two business days.";
+      })
+      .catch(function () {
+        status.textContent = "Your message could not be sent. Please email tylergsolutions@gmail.com directly.";
+      })
+      .then(function () { submit.disabled = false; });
+  });
+})();
+</script>
 </body>
 </html>
