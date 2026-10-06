@@ -59,7 +59,7 @@ section > * + * { margin-top: 1rem; }
 .facts { display: grid; grid-template-columns: max-content 1fr; gap: 0.6rem 2rem; margin: 1.5rem 0 0; }
 .facts dt { font: 500 0.8rem/1.9 var(--mono); text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
 .facts dd { margin: 0; }
-@media (max-width: 480px) { .facts { grid-template-columns: 1fr; gap: 0.15rem; } .facts dd { margin-bottom: 0.9rem; } }
+@media (max-width: 480px) { .facts { grid-template-columns: 1fr; gap: 0.15rem; } .facts dd { margin-bottom: 0.9rem; } .facts dd:last-child { margin-bottom: 0; } }
 
 .cta {
   display: inline-block; margin-top: 2rem; padding: 0.8rem 1.4rem;
@@ -75,20 +75,36 @@ footer.site {
 
 button.cta { border: 0; font: inherit; font-weight: 500; cursor: pointer; }
 button.cta:disabled { opacity: 0.6; cursor: default; }
-.form { display: grid; gap: 1.25rem; margin-top: 2rem; max-width: 32rem; }
-.field { display: grid; gap: 0.4rem; }
-.field label { font-weight: 500; font-size: 0.95rem; }
-.opt { color: var(--muted); font-weight: 400; }
-.field input, .field textarea {
-  font: inherit; color: var(--ink); background: var(--paper);
-  border: 1px solid #bdbdbd; border-radius: 0; padding: 0.65rem 0.75rem; width: 100%;
+.form {
+  display: grid; gap: 1.5rem; max-width: 36rem;
+  margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid var(--rule);
 }
-.field input:focus, .field textarea:focus { outline: 2px solid var(--ink); outline-offset: 1px; border-color: var(--ink); }
-.field textarea { resize: vertical; }
-.form-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 1.25rem; }
+.form-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; }
+@media (max-width: 560px) { .form-row { grid-template-columns: minmax(0, 1fr); } }
+.field { display: grid; gap: 0.5rem; min-width: 0; }
+.field label {
+  font: 500 0.75rem/1 var(--mono); text-transform: uppercase;
+  letter-spacing: 0.06em; color: var(--muted);
+}
+.opt { text-transform: none; letter-spacing: 0; font-family: var(--sans); font-weight: 400; }
+.field input, .field textarea {
+  -webkit-appearance: none; appearance: none;
+  display: block; width: 100%; margin: 0;
+  font: 400 1rem/1.5 var(--sans); color: var(--ink); background: var(--paper);
+  border: 1px solid #cccccc; border-radius: 2px;
+  padding: 0.7rem 0.85rem;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.field input { height: 2.9rem; }
+.field textarea { min-height: 9rem; resize: vertical; }
+.field input:hover, .field textarea:hover { border-color: #8a8a8a; }
+.field input:focus, .field textarea:focus { outline: none; border-color: var(--ink); box-shadow: 0 0 0 1px var(--ink); }
+.form-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.5rem; }
 .form-actions .cta { margin-top: 0; }
-.link-btn { background: none; border: 0; padding: 0; font: inherit; color: var(--muted); text-decoration: underline; cursor: pointer; }
+.link-btn { background: none; border: 0; padding: 0; font: inherit; font-size: 0.95rem; color: var(--muted); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
 .link-btn:hover { color: var(--ink); }
-.form-status { min-height: 1.65em; }
+.link-btn:focus-visible, button.cta:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+.form-status { margin: 0; font-size: 0.95rem; }
 .form-status:empty { display: none; }
+@media (prefers-reduced-motion: reduce) { .field input, .field textarea { transition: none; } }
 .hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
